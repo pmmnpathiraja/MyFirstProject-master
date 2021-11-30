@@ -216,8 +216,10 @@ class _SignInState extends State<SignIn> {
                               ),
                               TextButton(
                                   onPressed: () {
-                                    Navigator.pushReplacementNamed(
-                                        context, "CustomerRegister");
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(builder: (BuildContext context) {
+                                      return Register();
+                                    }));
                                   },
                                   child: Text(
                                     'Sign Up',

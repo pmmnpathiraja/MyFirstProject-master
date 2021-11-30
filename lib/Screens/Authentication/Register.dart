@@ -233,9 +233,10 @@ class _RegisterState extends State<Register> {
                                         fontFamily: 'Caveat'),
                                   ),
                                   TextButton(
-                                      onPressed: () {
+                                      onPressed: ()
+                                      {
                                         Navigator.pushReplacementNamed(
-                                            context, "CustomerLogin");
+                                            context, "LoginInitiate");
                                       },
                                       child: Text(
                                         'Signin',

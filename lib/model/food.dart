@@ -5,6 +5,7 @@ class Food {
   String name;
   String category;
   String image;
+  double price;
   Timestamp createdAt;
   Timestamp updatedAt;
 
@@ -15,6 +16,7 @@ class Food {
     name = data['name'];
     category = data['category'];
     image = data['image'];
+    price = data['price'];
     createdAt = data['createdAt'];
     updatedAt = data['updatedAt'];
   }
@@ -26,7 +28,8 @@ class Food {
       'category': category,
       'image': image,
       'createdAt': createdAt,
-      'updatedAt': updatedAt
+      'updatedAt': updatedAt,
+      'price': price
     };
   }
 }

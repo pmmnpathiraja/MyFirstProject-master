@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lavajava/Image/screens/detail.dart';
+import 'package:lavajava/Image/screens/feed.dart';
 import 'package:lavajava/Screens/Admin/manageFeedbacks.dart';
 import 'package:lavajava/Screens/Admin/manageOrder.dart';
 import 'package:lavajava/Screens/Services/auth.dart';
@@ -47,7 +49,7 @@ class _AdminHomeState extends State<AdminHome> {
   Widget Menu() {
     isMenu = true;
     //
-    return ManageProductAdmin();
+    return Feed();
   }
 
   Widget Order() {
