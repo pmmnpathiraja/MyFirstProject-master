@@ -44,16 +44,7 @@ class _FeedState extends State<Feed> {
     print("building Feed");
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          // action button
-          FlatButton(
-            onPressed: () => setupSignOut(_firebaseUser) ,
-            child: Text(
-              "Logout",
-              style: TextStyle(fontSize: 23, color: Colors.white),
-            ),
-          ),
-        ],
+        title: Text("Manage Products"),
       ),
       body: new RefreshIndicator(
         child: ListView.separated(

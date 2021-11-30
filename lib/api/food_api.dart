@@ -59,7 +59,7 @@ initializeCurrentUser(AuthNotifier authNotifier) async {
 
 getFoods(FoodNotifier foodNotifier,String userNIC) async {
   QuerySnapshot snapshot = await FirebaseFirestore.instance
-      .collection('Medical_Reports').doc('Reports').collection(userNIC)
+      .collection('Products').doc('Reports').collection('piyumikathisari@gmail.com')
       .orderBy("createdAt", descending: true).get();
 
   List<Food> _foodList = [];
@@ -82,7 +82,7 @@ uploadFoodAndImage(Food food, bool isUpdating, File localFile, Function foodUplo
     var uuid = Uuid().v4();
 
     final Reference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child('Medical_Reports/$userNIC/$uuid$fileExtension');
+        FirebaseStorage.instance.ref().child('Products/$userNIC/$uuid$fileExtension');
 
     await firebaseStorageRef.putFile(localFile).catchError((onError) {
       print(onError);
@@ -99,7 +99,7 @@ uploadFoodAndImage(Food food, bool isUpdating, File localFile, Function foodUplo
 }
 
 _uploadFood(Food food, bool isUpdating, Function foodUploaded,String userNIC, {String imageUrl}) async {
-  CollectionReference foodRef = FirebaseFirestore.instance.collection('Medical_Reports').doc('Reports').collection(userNIC);
+  CollectionReference foodRef = FirebaseFirestore.instance.collection('Products').doc('Reports').collection('piyumikathisari@gmail.com');
 
   if (imageUrl != null) {
     food.image = imageUrl;
@@ -137,6 +137,6 @@ deleteFood(Food food, Function foodDeleted,String userNic) async {
     print('image deleted');
   }
 
-  await FirebaseFirestore.instance.collection('Medical_Reports').doc('Reports').collection(userNic).doc(food.id).delete();
+  await FirebaseFirestore.instance.collection('Products').doc('Reports').collection('piyumikathisari@gmail.com').doc(food.id).delete();
   foodDeleted(food);
 }

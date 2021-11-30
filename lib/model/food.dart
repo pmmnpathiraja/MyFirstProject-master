@@ -5,7 +5,8 @@ class Food {
   String name;
   String category;
   String image;
-  double price;
+  String description;
+  String price;
   Timestamp createdAt;
   Timestamp updatedAt;
 
@@ -19,6 +20,7 @@ class Food {
     price = data['price'];
     createdAt = data['createdAt'];
     updatedAt = data['updatedAt'];
+    description  = data['description'];
   }
 
   Map<String, dynamic> toMap() {
@@ -29,7 +31,8 @@ class Food {
       'image': image,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
-      'price': price
+      'price': price,
+      'description':description
     };
   }
 }

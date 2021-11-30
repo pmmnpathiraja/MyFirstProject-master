@@ -149,7 +149,51 @@ class _FoodFormState extends State<FoodForm> {
       },
     );
   }
+  Widget _buildDescriptionField() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Description'),
+      initialValue: _currentFood.description,
+      keyboardType: TextInputType.text,
+      style: TextStyle(fontSize: 20),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Description is required';
+        }
 
+        if (value.length < 3 || value.length > 20) {
+          return 'Description must be more than 3 and less than 20';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _currentFood.description = value;
+      },
+    );
+  }
+
+  Widget _buildPriceField() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Price'),
+      initialValue: _currentFood.price,
+      keyboardType: TextInputType.text,
+      style: TextStyle(fontSize: 20),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Price is required';
+        }
+
+        if (value.length < 3 || value.length > 20) {
+          return 'Price must be more than 3 and less than 20';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _currentFood.price = value;
+      },
+    );
+  }
 
   _onFoodUploaded(Food food) {
     FoodNotifier foodNotifier = Provider.of<FoodNotifier>(context, listen: false);
@@ -208,6 +252,8 @@ class _FoodFormState extends State<FoodForm> {
                   )
                 : SizedBox(height: 0),
             _buildNameField(),
+            _buildDescriptionField(),
+            _buildPriceField(),
             _buildCategoryField(),
           ]),
         ),
