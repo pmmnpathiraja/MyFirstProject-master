@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
           //"AdminHome": (BuildContext context) => AdminHome(),
           //"Menu": (BuildContext context) => FoodMenu(),
           "UploadImage": (BuildContext context) => imageUpload(),
-          "ConfirmOrder": (BuildContext context) => ConfirmOrder(),
           "OrderSucess": (BuildContext context) => OrderSucess(),
           "CustomerFeedback": (BuildContext context) => CustomerFeedback(),
           "ShoppingCart": (BuildContext context) => ShoppingCart(),

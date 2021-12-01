@@ -136,10 +136,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          double total = 0;
+          foodNotifier.cartList.forEach((document) {
+            total = total + document.amount;
+          });
           foodNotifier.currentFood;
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
-              return ConfirmOrder();
+              return ConfirmOrder(total);
             }),
           );
         },

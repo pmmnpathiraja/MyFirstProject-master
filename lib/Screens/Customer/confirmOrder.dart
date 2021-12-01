@@ -6,8 +6,8 @@ import 'package:lavajava/notifier/food_notifier.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmOrder extends StatefulWidget {
-  const ConfirmOrder({Key key}) : super(key: key);
-
+  const ConfirmOrder(this.total, {Key key}) : super(key: key);
+final double total;
   @override
   _ConfirmOrderState createState() => _ConfirmOrderState();
 }
@@ -35,7 +35,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
             width: double.infinity,
             color: Colors.black,
             child: Container(
-              height: 750.0,
+              height: 100.0,
               width: double.infinity,
               // color: Colors.yellow[800],
               decoration: BoxDecoration(
@@ -53,9 +53,27 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                     children: <Widget>[
                       Center(
                         child: Container(
-                          height: 500,
+                          height: 200,
                           width: double.infinity,
-                          padding: EdgeInsets.only(top: 450),
+                          padding: EdgeInsets.only(top: 100),
+                          child: Text(
+                            "${widget.total}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              color: Colors.yellow,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 20,
+                              fontFamily: 'KaushanScript',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          height: 200,
+                          width: double.infinity,
+                          padding: EdgeInsets.only(top: 100),
                           child: Text(
                             "Enter your Address",
                             textAlign: TextAlign.center,
