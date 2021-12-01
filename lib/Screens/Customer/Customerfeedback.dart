@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lavajava/main.dart';
 
 class CustomerFeedback extends StatefulWidget {
   const CustomerFeedback({Key key}) : super(key: key);
@@ -9,7 +12,11 @@ class CustomerFeedback extends StatefulWidget {
 
 class _CustomerFeedbackState extends State<CustomerFeedback> {
   TextEditingController orderFeedbackContoller = TextEditingController();
-
+  Future<void> uploadData() async {
+    var time = Timestamp.now();
+    CollectionReference foodRef = FirebaseFirestore.instance.collection('Feedback').doc(FirebaseAuth.instance.currentUser.email).collection( "$time");
+    foodRef.doc('Feedback').set({'TimeStamp': time,'Feedback':orderFeedbackContoller.text});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,8 +91,15 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                         Container(
                           child: TextButton(
                             onPressed: () {
+                              if(orderFeedbackContoller.text != null){
+                                uploadData();
+                              }
                               //orderId eka yatathe Feedback kiyata table ekatata feedback eka yanna oni user ID ekath ekka
-                              Navigator.pushReplacementNamed(context, "Menu");
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (BuildContext context) {
+                                  return MyApp();
+                                }),
+                              );
                             },
                             child: Text(
                               'Send Feedback',

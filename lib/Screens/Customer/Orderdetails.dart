@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lavajava/Models/Products.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:lavajava/Widgets/CustomText.dart';
+import 'package:lavajava/model/food.dart';
 import 'package:lavajava/notifier/food_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -126,7 +127,13 @@ class _DetailsState extends State<Details> {
                       padding: const EdgeInsets.fromLTRB(28, 12, 24, 12),
                       child: GestureDetector(
                         onTap: () {
+                          List<Food> _cartList = [];
+                          foodNotifier.cartList.forEach((document) {
+                            _cartList.add(document);
+                          });
                           foodNotifier.currentFood.amount = amount;
+                          _cartList.add(foodNotifier.currentFood);
+                          foodNotifier.cartList = _cartList;
                           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                             return ShoppingCart();
                           }));

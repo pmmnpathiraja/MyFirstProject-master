@@ -1,5 +1,7 @@
 import 'package:flutter/Material.dart';
 
+import 'Customerfeedback.dart';
+
 class OrderSucess extends StatelessWidget {
   const OrderSucess({Key key}) : super(key: key);
 
@@ -72,8 +74,11 @@ class OrderSucess extends StatelessWidget {
                               child: TextButton(
                                 onPressed: () {
                                   // order id eka yatathe user Id ekath eka feedback table ekata yanna oni feedback eka
-                                  Navigator.pushReplacementNamed(
-                                      context, "CustomerFeedback");
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (BuildContext context) {
+                                      return CustomerFeedback();
+                                    }),
+                                  );
                                 },
                                 child: Text(
                                   'Give Feedback',

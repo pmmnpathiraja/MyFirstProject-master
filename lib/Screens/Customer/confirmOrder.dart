@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lavajava/Screens/Customer/orderSuccess.dart';
+import 'package:lavajava/notifier/food_notifier.dart';
+import 'package:provider/provider.dart';
 
 class ConfirmOrder extends StatefulWidget {
   const ConfirmOrder({Key key}) : super(key: key);
@@ -12,6 +17,15 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
 
   @override
   Widget build(BuildContext context) {
+    FoodNotifier foodNotifier = Provider.of<FoodNotifier>(context);
+    Future<void> uploadData() async {
+      var time = Timestamp.now();
+      CollectionReference foodRef = FirebaseFirestore.instance.collection('Order').doc(FirebaseAuth.instance.currentUser.email).collection(orderAddressContoller.text+'     $time');
+      foodNotifier.cartList.forEach((document) async {
+        await foodRef.add(document.toMap());
+      });
+      foodRef.doc('General').set({'TimeStamp': time,'Address':orderAddressContoller.text});
+    }
     return Scaffold(
       backgroundColor: Colors.black,
       body: ListView(
@@ -86,8 +100,14 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                             onPressed: () {
                               //Address eka ekka order details DB ekata Yannaoni User Email ekath ekka
                               //order details wada ada date ekay time ekay thiyenna oni
-                              Navigator.pushReplacementNamed(
-                                      context, "OrderSucess");
+                              if(orderAddressContoller.text != null){
+                                uploadData();
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (BuildContext context) {
+                                    return OrderSucess();
+                                  }),
+                                );
+                              }
                             },
                             child: Text(
                               'Confirm Order',
