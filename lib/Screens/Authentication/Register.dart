@@ -210,8 +210,10 @@ class _RegisterState extends State<Register> {
                                         loading = false;
                                       });
                                     } else {
-                                      Navigator.pushReplacementNamed(
-                                          context, "CustomerLogin");
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(builder: (BuildContext context) {
+                                        return LoginInit();
+                                      }));
                                     }
                                   }
                                 }),

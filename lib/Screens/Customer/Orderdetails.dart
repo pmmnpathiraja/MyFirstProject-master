@@ -2,19 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:lavajava/Models/Products.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:lavajava/Widgets/CustomText.dart';
+import 'package:lavajava/notifier/food_notifier.dart';
+import 'package:provider/provider.dart';
+
+import 'cart.dart';
 
 class Details extends StatefulWidget {
-  final Product product;
-
-  Details({@required this.product});
+  // final Product product;
+  //
+  // Details({@required this.product});
 
   @override
   _DetailsState createState() => _DetailsState();
 }
 
 class _DetailsState extends State<Details> {
+  double amount= 0 ;
+  void calculator(String price){
+    print('cal');
+    setState(() {
+      double value = double.parse(price);
+      amount = amount + value;
+      print(amount);
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    FoodNotifier foodNotifier = Provider.of<FoodNotifier>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -24,7 +38,11 @@ class _DetailsState extends State<Details> {
             child: Stack(children: <Widget>[
               Carousel(
                 images: [
-                  AssetImage('asset/${widget.product.image}'),
+                  NetworkImage(
+                    foodNotifier.currentFood.image != null
+                        ? foodNotifier.currentFood.image
+                        : 'https://www.testingxperts.com/wp-content/uploads/2019/02/placeholder-img.jpg',
+                  ),
                 ],
                 dotBgColor: Colors.black,
                 dotColor: Colors.white,
@@ -55,18 +73,36 @@ class _DetailsState extends State<Details> {
             ]),
           ),
           CustomText(
-            text: widget.product.name,
+            text: foodNotifier.currentFood.name,
             size: 24,
             weight: FontWeight.bold,
           ),
           CustomText(
-            text: "\Rs." + widget.product.price.toString(),
+            text: "\Rs." + foodNotifier.currentFood.price,
             size: 18,
             weight: FontWeight.w300,
             color: Colors.orange[100],
           ),
           SizedBox(
-            height: 15,
+            height: 20,
+          ),
+          CustomText(
+            text: "DESCRIPTION",
+            size: 20,
+            weight: FontWeight.w300,
+            color: Colors.white,
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          CustomText(
+            text: foodNotifier.currentFood.description,
+            size: 10,
+            weight: FontWeight.w300,
+            color: Colors.orange[100],
+          ),
+          SizedBox(
+            height:20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +126,10 @@ class _DetailsState extends State<Details> {
                       padding: const EdgeInsets.fromLTRB(28, 12, 24, 12),
                       child: GestureDetector(
                         onTap: () {
-                          //methana tap kalama cart ekata yanna oni product eka
+                          foodNotifier.currentFood.amount = amount;
+                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                            return ShoppingCart();
+                          }));
                         },
                         child: CustomText(
                             text: "Add to cart", color: Colors.white, size: 24),
@@ -105,10 +144,19 @@ class _DetailsState extends State<Details> {
                       size: 28,
                       color: Colors.red[300],
                     ),
-                    onPressed: () {}),
+                    onPressed: ()=> calculator(foodNotifier.currentFood.price)),
               ),
             ],
-          )
+          ),
+          SizedBox(
+            height:20,
+          ),
+          CustomText(
+            text: amount == 0 ? '' : '$amount',
+            size: 10,
+            weight: FontWeight.w300,
+            color: Colors.orange[100],
+          ),
         ],
       ),
     );

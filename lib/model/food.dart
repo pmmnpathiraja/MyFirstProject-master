@@ -9,6 +9,7 @@ class Food {
   String price;
   Timestamp createdAt;
   Timestamp updatedAt;
+  double amount;
 
   Food();
 
@@ -21,6 +22,7 @@ class Food {
     createdAt = data['createdAt'];
     updatedAt = data['updatedAt'];
     description  = data['description'];
+    amount = data['amount'];
   }
 
   Map<String, dynamic> toMap() {
@@ -32,7 +34,8 @@ class Food {
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       'price': price,
-      'description':description
+      'description':description,
+      'amount':amount
     };
   }
 }
