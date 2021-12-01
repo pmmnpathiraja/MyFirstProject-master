@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lavajava/Screens/Authentication/signin.dart';
 import 'package:lavajava/Screens/Services/auth.dart';
+import 'package:lavajava/Screens/loginInit.dart';
 import 'package:lavajava/Shared/constants.dart';
 import 'package:lavajava/Shared/loading.dart';
 import 'package:lavajava/Screens/home.dart';
@@ -235,8 +236,10 @@ class _RegisterState extends State<Register> {
                                   TextButton(
                                       onPressed: ()
                                       {
-                                        Navigator.pushReplacementNamed(
-                                            context, "LoginInitiate");
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(builder: (BuildContext context) {
+                                          return LoginInit();
+                                        }));
                                       },
                                       child: Text(
                                         'Signin',
