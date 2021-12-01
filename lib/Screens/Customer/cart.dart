@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lavajava/Models/Products.dart';
 import 'package:lavajava/Widgets/CustomText.dart';
+import 'package:lavajava/notifier/food_notifier.dart';
+import 'package:provider/provider.dart';
 
 class ShoppingCart extends StatefulWidget {
   const ShoppingCart({Key key}) : super(key: key);
@@ -10,11 +12,12 @@ class ShoppingCart extends StatefulWidget {
 }
 
 class _ShoppingCartState extends State<ShoppingCart> {
-  Product product =
-      Product(name: 'Meals', image: 'biriyani.jpg', wishList: true, price: 150);
+  // Product product =
+  //     Product(name: 'Meals', image: 'biriyani.jpg', wishList: true, price: 150);
 
   @override
   Widget build(BuildContext context) {
+    FoodNotifier foodNotifier = Provider.of<FoodNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -50,10 +53,27 @@ class _ShoppingCartState extends State<ShoppingCart> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
-                    child: Image.asset(
-                      "asset/${product.image}",
-                      height: 120,
-                      width: 120,
+                    child: Container(
+                      height:100 ,
+                      width: 100,
+                      // color: Colors.yellow[800],
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.50), BlendMode.darken),
+                            // image: (
+                            //   foodNotifier.foodList[index].image != null
+                            //       ? foodNotifier.foodList[index].image
+                            //       : 'https://www.testingxperts.com/wp-content/uploads/2019/02/placeholder-img.jpg',
+                            // ),
+                            image: NetworkImage(
+                              foodNotifier.currentFood.image != null
+                                  ? foodNotifier.currentFood.image
+                                  : 'https://www.testingxperts.com/wp-content/uploads/2019/02/placeholder-img.jpg',
+                            ),
+                          )),
                     ),
                   ),
                   Row(
@@ -62,15 +82,15 @@ class _ShoppingCartState extends State<ShoppingCart> {
                       RichText(
                           text: TextSpan(children: [
                         TextSpan(
-                            text: product.name + "\n",
+                            text: foodNotifier.currentFood.name + "\n",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 20)),
                         TextSpan(
-                            text: "\Rs." + product.price.toString() + "\n",
+                            text: "\Rs." + foodNotifier.currentFood.amount.toString() + "\n",
                             style: TextStyle(color: Colors.white, fontSize: 17))
                       ])),
                       SizedBox(
-                        width: 120,
+                        width: 30,
                       ),
                       IconButton(
                           icon: Icon(
